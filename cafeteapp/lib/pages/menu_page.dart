@@ -84,13 +84,15 @@ class _MenuPageState extends State<MenuPage> {
                     children: [
                       Padding(
                         padding: EdgeInsets.all(8),
-                        child: Text(
-                          entry.key, // Kategorie-Name
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        child: Center(
+                          child: Text(
+                            entry.key, // Kategorie-Name
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                       ...entry.value.map((item) => Card(
-                        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                         elevation: 3,
                         color: Color(0xFF4B3621),
                         child: Padding(
@@ -98,8 +100,12 @@ class _MenuPageState extends State<MenuPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(item.name, style: TextStyle(fontSize: 18)),
-                              Text("${item.price.toStringAsFixed(2)} €", style: TextStyle(fontWeight: FontWeight.bold)),
+                              Padding(
+                                  padding: EdgeInsets.only(left: 20), // rückt Name nach rechts
+                                  child: Text(item.name, style: TextStyle(fontSize: 18, color: Colors.white))),
+                              Padding(
+                                padding: EdgeInsets.only(right: 20),
+                                  child: Text("${item.price.toStringAsFixed(2)} €", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white))),
                             ],
                           ),
                         ),

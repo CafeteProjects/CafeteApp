@@ -1,7 +1,9 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'models/menu_items.dart';
+import '/database_workhorse.dart';
 //import 'models/active.dart'; // Dein Active-Model
+import 'dart:io'; // für HttpDate
 
 const String backendMenuUrl = 'http://192.168.48.155:5000/menu';
 const String backendActiveUrl = 'http://192.168.48.155:5000/active';
@@ -52,3 +54,18 @@ Future<Active> fetchActive() async {
   }
 }
 
+Future<List<News>> fetchNews() async {
+  try {
+    final response = await http.get(Uri.parse('http://192.168.48.155:5000/news'));
+
+    if (response.statusCode == 200) {
+      final List<dynamic> data = jsonDecode(response.body) as List<dynamic>;
+      return data.map((item) => News.fromJson(item as Map<String, dynamic>)).toList();
+    } else {
+      throw Exception('Server antwortet mit Fehlercode ${response.statusCode}');
+    }
+  } catch (e) {
+    print('Fehler beim Laden der News: $e');
+    throw Exception('Keine Verbindung zum Backend');
+  }
+}
